@@ -10,6 +10,8 @@ from bs4 import BeautifulSoup
 Result = namedtuple("Res", "name,url")
 
 
+#  页码
+
 def get_page_url(start_url=None):
     if not start_url:
         return []
@@ -19,6 +21,7 @@ def get_page_url(start_url=None):
     yield from page_div.find_all("a")
 
 
+# name url
 def get_movie_result(soup: BeautifulSoup):
     every_page_movie = soup.find_all("div", attrs={"class": "hd"})
     result = list()
