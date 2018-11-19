@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 
 Result = namedtuple("Res", "name,url")
 
-###
+
 def get_page_url(start_url=None):
     if not start_url:
         return []
