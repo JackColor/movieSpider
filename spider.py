@@ -24,12 +24,18 @@ def get_page_url(start_url=None):
 # name url
 def get_movie_result(soup: BeautifulSoup):
     every_page_movie = soup.find_all("div", attrs={"class": "hd"})
-    result = list()
+    # result = list()
     for movie in every_page_movie:
         for v in movie.find("span", attrs={"class": "title"}):
             res = Result(name=v, url=movie.find("a").get("href"))
-            result.append(res)
+            yield res
 
 
 if __name__ == '__main__':
     url = "http://movie.douban.com/top250"
+    for page_url in get_page_url(url):
+        footer_url = page_url.get("href")
+        total_url = url + footer_url
+        web_content = requests.get(total_url).content
+        soup = BeautifulSoup(web_content, "lxml")
+        print(soup)
